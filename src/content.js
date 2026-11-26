@@ -102,7 +102,13 @@ export const copy = {
     portfolio: {
       kicker: 'Portfolio',
       title: 'Selected work',
-      filters: { all: 'All', brand: 'Brand', mobile: 'Mobile', website: 'Website' },
+      hint: 'Every stack is a set of projects. Tap one to lay the cards out.',
+      groups: {
+        website: { t: 'Websites', s: 'Marketplaces, dashboards & landing pages' },
+        mobile: { t: 'Mobile Apps', s: 'Product design for iOS & Android' },
+        brand: { t: 'Brand & Visual', s: 'Identity, print & marketing design' },
+      },
+      works: 'works',
       tagNames: { brand: 'Brand', mobile: 'Mobile', website: 'Website' },
       view: 'View',
       close: 'Close',
@@ -192,7 +198,13 @@ export const copy = {
     portfolio: {
       kicker: 'Portofolio',
       title: 'Karya pilihan',
-      filters: { all: 'Semua', brand: 'Brand', mobile: 'Mobile', website: 'Website' },
+      hint: 'Setiap tumpukan berisi kumpulan proyek. Ketuk salah satu untuk membentangkan kartunya.',
+      groups: {
+        website: { t: 'Website', s: 'Marketplace, dashboard & landing page' },
+        mobile: { t: 'Aplikasi Mobile', s: 'Desain produk untuk iOS & Android' },
+        brand: { t: 'Brand & Visual', s: 'Identitas, cetak & desain pemasaran' },
+      },
+      works: 'karya',
       tagNames: { brand: 'Brand', mobile: 'Mobile', website: 'Website' },
       view: 'Lihat',
       close: 'Tutup',

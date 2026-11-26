@@ -13,7 +13,7 @@ export default function App() {
     <LangProvider>
       <MotionConfig reducedMotion="user">
         <Nav />
-        <main className="lg:pl-60">
+        <main>
           <Hero />
           <Marquee />
           <About />

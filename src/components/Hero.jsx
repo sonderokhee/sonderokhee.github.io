@@ -42,7 +42,7 @@ export default function Hero() {
   }
 
   return (
-    <section id="top" className="grain relative isolate overflow-hidden bg-cream pt-28 lg:pt-14">
+    <section id="top" className="grain relative isolate overflow-hidden bg-cream pt-28 md:pt-32">
       {/* backdrop */}
       <div className="bg-grid mask-fade pointer-events-none absolute inset-0 -z-10" />
       <div className="pointer-events-none absolute -right-40 top-10 -z-10 size-[620px] rounded-full bg-wine/15 blur-[120px]" />

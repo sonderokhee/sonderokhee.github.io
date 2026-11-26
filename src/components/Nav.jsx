@@ -27,7 +27,7 @@ export function LangSwitch({ dark = false }) {
           {lang === l && (
             <motion.span
               layoutId={`lang-pill-${dark ? 'd' : 'l'}`}
-              className="absolute inset-0 -z-10 rounded-full bg-wine"
+              className="nav-on absolute inset-0 -z-10 rounded-full"
               transition={{ type: 'spring', stiffness: 420, damping: 32 }}
             />
           )}
@@ -44,36 +44,15 @@ const socials = [
   { icon: 'mail', href: `mailto:${profile.email}`, label: 'Email' },
 ]
 
-function NavLinks({ active, onPick, big = false }) {
-  const { t } = useLang()
+function Mark() {
   return (
-    <ul className={big ? 'space-y-1' : 'space-y-0.5'}>
-      {ids.map((id, i) => {
-        const on = active === id
-        return (
-          <li key={id}>
-            <a
-              href={`#${id}`}
-              onClick={onPick}
-              className={`group relative isolate flex items-center gap-3 rounded-xl px-3 transition-colors ${big ? 'py-3' : 'py-2.5'} ${
-                on ? 'text-ink' : 'text-ink/50 hover:text-ink'
-              }`}
-            >
-              {on && (
-                <motion.span
-                  layoutId={big ? 'side-active-m' : 'side-active'}
-                  className="absolute inset-0 -z-10 rounded-xl bg-sand"
-                  transition={{ type: 'spring', stiffness: 380, damping: 32 }}
-                />
-              )}
-              <span className={`font-mono text-[10px] tracking-widest ${on ? 'text-wine' : 'text-ink/30'}`}>0{i + 1}</span>
-              <span className={big ? 'font-display text-3xl font-semibold' : 'text-sm font-medium'}>{t.nav[id]}</span>
-              <span className={`ml-auto h-px bg-wine transition-all duration-500 ${on ? 'w-4' : 'w-0 group-hover:w-2'}`} />
-            </a>
-          </li>
-        )
-      })}
-    </ul>
+    <a href="#top" className="flex items-center gap-3">
+      <span className="nav-on grid size-10 place-items-center rounded-full font-display text-sm font-bold tracking-tight text-white">YO</span>
+      <span className="hidden leading-tight sm:block">
+        <span className="block text-sm font-semibold text-ink">Yohana Oktavia</span>
+        <span className="block text-[10px] text-muted">UI/UX · Front-End</span>
+      </span>
+    </a>
   )
 }
 
@@ -101,91 +80,65 @@ export default function Nav() {
 
   return (
     <>
-      {/* ---------- desktop: fixed side rail ---------- */}
-      <motion.aside
-        initial={{ x: -40, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
+      <motion.div className="fixed inset-x-0 top-0 z-[60] h-0.5 origin-left bg-wine" style={{ scaleX: progress }} />
+
+      <motion.header
+        initial={{ y: -40, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease }}
-        className="fixed inset-y-0 left-0 z-50 hidden w-60 p-4 lg:block"
+        className="pointer-events-none fixed inset-x-0 top-0 z-50 flex items-center justify-between gap-4 px-4 py-4 md:px-8"
       >
-        <nav className="glass relative flex h-full flex-col overflow-hidden rounded-[28px] p-4 shadow-xl shadow-ink/5">
-          {/* scroll progress along the rail's edge */}
-          <div className="absolute inset-y-8 right-0 w-0.5 bg-ink/5">
-            <motion.div className="h-full w-full origin-top bg-wine" style={{ scaleY: progress }} />
-          </div>
+        <div className="pointer-events-auto"><Mark /></div>
 
-          <a href="#top" className="flex items-center gap-3 px-3 pt-2">
-            <span className="relative grid size-10 shrink-0 place-items-center rounded-xl bg-ink font-display text-lg font-bold text-cream">
-              Y
-              <span className="absolute bottom-2 right-2 size-1.5 rounded-full bg-wine-soft" />
-            </span>
-            <span className="leading-tight">
-              <span className="block font-display text-base font-bold tracking-tight text-ink">yohana<span className="text-wine">.</span></span>
-              <span className="label block whitespace-nowrap text-[8.5px] tracking-[0.14em] text-muted">UI/UX · Front-End</span>
-            </span>
-          </a>
-
-          <div className="mx-3 my-6 h-px bg-ink/10" />
-          <span className="label mb-3 px-3 text-[9px] text-ink/35">Menu</span>
-          <NavLinks active={active} />
-
-          <div className="mt-auto space-y-4 px-3">
-            <div className="flex items-center gap-2 text-xs text-muted">
-              <span className="size-2 shrink-0 rounded-full bg-wine animate-pulse-dot" />
-              <span className="leading-tight">{t.hero.status}</span>
-            </div>
-            <a
-              href="#contact"
-              className="block rounded-2xl bg-ink px-4 py-3 text-center text-sm font-medium text-cream transition-colors hover:bg-wine"
-            >
-              {t.nav.cta}
-            </a>
-            <div className="flex items-center justify-between">
-              <LangSwitch />
-              <div className="flex">
-                {socials.map((s) => (
+        {/* the pill */}
+        <nav aria-label="Main" className="glass-ink pointer-events-auto absolute left-1/2 hidden -translate-x-1/2 rounded-full p-[5px] lg:block">
+          <ul className="relative z-10 flex gap-1">
+            {ids.map((id) => {
+              const on = active === id
+              return (
+                <li key={id}>
                   <a
-                    key={s.icon}
-                    href={s.href}
-                    target={s.href.startsWith('http') ? '_blank' : undefined}
-                    rel="noreferrer"
-                    aria-label={s.label}
-                    className="grid size-8 place-items-center rounded-full text-ink/50 transition-colors hover:bg-ink/5 hover:text-wine"
+                    href={`#${id}`}
+                    aria-current={on ? 'true' : undefined}
+                    className={`relative isolate block rounded-full px-[18px] py-[9px] text-[12.5px] font-semibold uppercase tracking-[0.04em] transition-colors duration-300 ${
+                      on ? 'text-white' : 'text-cream/60 hover:bg-white/[0.08] hover:text-white'
+                    }`}
                   >
-                    <Icon name={s.icon} className="size-4" />
+                    {on && (
+                      <motion.span
+                        layoutId="nav-on"
+                        className="nav-on absolute inset-0 -z-10 rounded-full"
+                        transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                      />
+                    )}
+                    {t.nav[id]}
                   </a>
-                ))}
-              </div>
-            </div>
-          </div>
+                </li>
+              )
+            })}
+          </ul>
         </nav>
-      </motion.aside>
 
-      {/* ---------- mobile: slim top bar + side drawer ---------- */}
-      <motion.div className="fixed inset-x-0 top-0 z-[60] h-0.5 origin-left bg-wine lg:hidden" style={{ scaleX: progress }} />
-      <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 lg:hidden">
-        <div className="glass flex items-center justify-between rounded-full py-2 pl-5 pr-2 shadow-lg shadow-ink/5">
-          <a href="#top" className="font-display text-lg font-bold tracking-tight text-ink">
-            yohana<span className="text-wine">.</span>
-          </a>
-          <div className="flex items-center gap-2">
-            <LangSwitch />
-            <button
-              type="button"
-              onClick={() => setOpen(true)}
-              aria-label="Menu"
-              aria-expanded={open}
-              className="grid size-10 place-items-center rounded-full bg-ink text-cream"
-            >
-              <span className="flex flex-col gap-1.5">
-                <span className="block h-0.5 w-4 bg-current" />
-                <span className="block h-0.5 w-3 self-end bg-current" />
-              </span>
-            </button>
+        <div className="pointer-events-auto flex items-center gap-2">
+          <div className="glass-ink rounded-full p-[3px]">
+            <div className="relative z-10"><LangSwitch dark /></div>
           </div>
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            aria-label="Menu"
+            aria-expanded={open}
+            className="glass-ink grid size-[42px] place-items-center rounded-full text-cream lg:hidden"
+          >
+            <span className="relative z-10 flex flex-col gap-1.5">
+              <span className="block h-0.5 w-4 bg-current" />
+              <span className="block h-0.5 w-3 self-end bg-current" />
+            </span>
+          </button>
         </div>
-      </header>
+      </motion.header>
 
+      {/* mobile / tablet drawer */}
       <AnimatePresence>
         {open && (
           <>
@@ -199,23 +152,36 @@ export default function Nav() {
             />
             <motion.aside
               key="drawer"
-              className="fixed inset-y-0 left-0 z-[80] flex w-[82%] max-w-sm flex-col rounded-r-[28px] bg-cream p-6 shadow-2xl lg:hidden"
-              initial={{ x: '-100%' }}
+              className="glass-ink fixed inset-y-3 right-3 z-[80] flex w-[82%] max-w-sm flex-col rounded-[28px] p-6 text-cream lg:hidden"
+              initial={{ x: '110%' }}
               animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
+              exit={{ x: '110%' }}
               transition={{ type: 'spring', stiffness: 320, damping: 34 }}
             >
-              <div className="flex items-center justify-between">
-                <span className="font-display text-lg font-bold">yohana<span className="text-wine">.</span></span>
-                <button type="button" onClick={() => setOpen(false)} aria-label="Close" className="grid size-10 place-items-center rounded-full bg-ink text-cream">
+              <div className="relative z-10 flex items-center justify-between">
+                <span className="label text-cream/50">Menu</span>
+                <button type="button" onClick={() => setOpen(false)} aria-label="Close" className="nav-on grid size-10 place-items-center rounded-full text-white">
                   <Icon name="close" className="size-4" />
                 </button>
               </div>
-              <div className="mt-10">
-                <NavLinks active={active} onPick={() => setOpen(false)} big />
-              </div>
-              <div className="mt-auto space-y-4">
-                <a href="#contact" onClick={() => setOpen(false)} className="block rounded-2xl bg-ink px-4 py-3.5 text-center text-sm font-medium text-cream">
+              <ul className="relative z-10 mt-10 space-y-1">
+                {ids.map((id, i) => (
+                  <motion.li key={id} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.05 * i + 0.1, ease }}>
+                    <a
+                      href={`#${id}`}
+                      onClick={() => setOpen(false)}
+                      className={`flex items-center gap-4 rounded-2xl px-4 py-3 font-display text-2xl font-semibold uppercase tracking-tight ${
+                        active === id ? 'nav-on text-white' : 'text-cream/75'
+                      }`}
+                    >
+                      <span className="font-mono text-[10px] tracking-widest opacity-60">0{i + 1}</span>
+                      {t.nav[id]}
+                    </a>
+                  </motion.li>
+                ))}
+              </ul>
+              <div className="relative z-10 mt-auto space-y-4">
+                <a href="#contact" onClick={() => setOpen(false)} className="nav-on block rounded-full px-4 py-3.5 text-center text-sm font-semibold uppercase tracking-wide text-white">
                   {t.nav.cta}
                 </a>
                 <div className="flex justify-center gap-2">
@@ -226,7 +192,7 @@ export default function Nav() {
                       target={s.href.startsWith('http') ? '_blank' : undefined}
                       rel="noreferrer"
                       aria-label={s.label}
-                      className="grid size-10 place-items-center rounded-full border border-ink/10 text-ink/60"
+                      className="grid size-10 place-items-center rounded-full border border-cream/15 text-cream/70"
                     >
                       <Icon name={s.icon} className="size-4" />
                     </a>
